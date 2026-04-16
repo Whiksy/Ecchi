@@ -25,8 +25,13 @@ app.use(helmet({
 app.use(limiter);
 app.use(express.json());
 
-// Mở thư mục tĩnh
-app.use(express.static(path.join(__dirname, 'Views')));
+// Route chính sẽ trả về lớp bọc wrapper (Chứa khung nhạc tổng)
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Views', 'wrapper.html'));
+});
+
+// Mở thư mục tĩnh (Tắt index mặc định để tránh đè lên route '/' ở trên)
+app.use(express.static(path.join(__dirname, 'Views'), { index: false }));
 
 // Đăng ký Routes API 
 app.use('/api', apiRoutes);

@@ -39,7 +39,7 @@ noBtn.addEventListener('click', () => {
 // Xử lý khi nhấn nút "Cóa!"
 yesBtn.addEventListener('click', () => {
     container.innerHTML = `
-        <h1>Gửi cho sốp iiiiiiii! 💖</h1>
+        <h1>Gửi cho Anh iiiiiiii! 💖</h1>
         <div class="gif">
             <img id="statusGif" src="https://media.tenor.com/qU_3Gf8t-qAAAAAC/tkthao219-bubududu.gif" alt="Love gif">
         </div>
@@ -50,7 +50,7 @@ yesBtn.addEventListener('click', () => {
                 <input type="file" id="mediaUpload" accept="image/*,video/*">
                 <div class="file-name" id="fileNameDisplay">Chưa có tệp nào nè...</div>
             </label>
-            <button id="uploadBtn" class="btn-submit">Gửi cho Sốp 🚀</button>
+            <button id="uploadBtn" class="btn-submit">Gửi cho Anh 🚀</button>
             <p id="uploadStatus"></p>
         </div>
     `;
