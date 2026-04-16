@@ -7,15 +7,47 @@
     <!-- Nhúng file CSS -->
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/833/833472.png" type="image/png">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Bổ sung CSS để giao diện gọn gàng và chuẩn Mobile */
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; background-color: #ffe6e6; }
+        .container { background: white; width: 90%; max-width: 420px; padding: 30px 20px; border-radius: 20px; box-shadow: 0 10px 25px rgba(255,154,158,0.4); text-align: center; box-sizing: border-box; }
+        h1, h2 { color: #ff4d4d; font-size: 1.4rem; margin-bottom: 15px; line-height: 1.4; }
+        .gif img { max-width: 100%; border-radius: 12px; margin-bottom: 15px; pointer-events: none; }
+        input[type="text"] { width: 100%; padding: 12px; border: 2px solid #ffb3b3; border-radius: 10px; font-size: 0.95rem; box-sizing: border-box; outline: none; transition: 0.3s; text-align: center; margin-bottom: 10px; }
+        input[type="text"]:focus { border-color: #ff4d4d; box-shadow: 0 0 8px rgba(255,77,77,0.3); }
+        button { padding: 12px 20px; font-size: 1rem; font-weight: bold; border: none; border-radius: 10px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        button:active { transform: scale(0.95); }
+        #submitNameBtn { width: 100%; background: #ff9a9e; color: white; margin-top: 5px; box-shadow: 0 4px 10px rgba(255,154,158,0.5); }
+        .buttons { display: flex; justify-content: center; gap: 15px; margin-top: 20px; position: relative; width: 100%; }
+        #yesBtn { background-color: #ff4d4d; color: white; flex: 1; z-index: 2; box-shadow: 0 4px 10px rgba(255,77,77,0.4); }
+        #noBtn { background-color: #aeb6bf; color: white; flex: 1; transition: left 0.3s ease, top 0.3s ease; z-index: 1; }
+        .footer { margin-top: 20px; font-size: 0.9rem; color: #ff8080; font-weight: bold; }
+        
+        /* Phần Upload */
+        .upload-area { display: block; padding: 25px 20px; border: 2px dashed #ff9a9e; border-radius: 12px; cursor: pointer; margin-bottom: 15px; background: #fff5f5; transition: 0.3s; }
+        .upload-area:hover { background: #ffe6e6; }
+        .upload-icon { font-size: 2rem; margin-bottom: 10px; }
+        .upload-text { font-size: 1rem; color: #ff4d4d; font-weight: bold; margin-bottom: 5px; }
+        .file-name { font-size: 0.85rem; color: #666; word-break: break-all; }
+        input[type="file"] { display: none; }
+        .btn-submit { background: #ff4d4d; color: white; width: 100%; box-shadow: 0 4px 10px rgba(255,77,77,0.4); }
+        #uploadStatus { margin-top: 15px; font-weight: bold; color: #ff4d4d; }
+
+        /* Khung nhạc xoay giống Facebook */
+        .music-player { position: fixed; top: 15px; left: 15px; z-index: 1000; width: 45px; height: 45px; background: #fff; border-radius: 50%; box-shadow: 0 4px 10px rgba(255,154,158,0.5); border: 2px solid #ff9a9e; display: flex; justify-content: center; align-items: center; cursor: pointer; overflow: hidden; transition: 0.3s; }
+        .vinyl { width: 75%; height: 75%; border-radius: 50%; animation: spin 3s linear infinite; animation-play-state: paused; object-fit: cover; }
+        .music-player.playing .vinyl { animation-play-state: running; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
 </head>
 <body>
-    <!-- Nút bật/tắt nhạc góc trái -->
-    <button id="musicToggle" style="position: fixed; top: 10px; left: 10px; z-index: 1000; background: #ff9a9e; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" title="Bật/Tắt Nhạc">🔇</button>
-
     <!-- Nút truy cập Admin ẩn góc phải -->
     <a href="/login.html" class="admin-btn" title="Khu vực của Sốp">👑</a>
 
     <div class="container">
+        <!-- Nhúng nhạc SoundCloud -->
+        <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2123779404&color=%23a149d0&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/nh-t-nguy-n-19150357" title="Kaito 🃏" target="_blank" style="color: #cccccc; text-decoration: none;">Kaito 🃏</a> · <a href="https://soundcloud.com/nh-t-nguy-n-19150357/gi-l-y-l-m-g-h-i-th-gi-n" title="Giữ lấy làm gì ( Hải thư giản)" target="_blank" style="color: #cccccc; text-decoration: none;">Giữ lấy làm gì ( Hải thư giản)</a></div>
+        <div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100; margin-bottom: 15px;"><a href="https://soundcloud.com/nh-t-nguy-n-19150357" title="Kaito 🃏" target="_blank" style="color: #cccccc; text-decoration: none;">Kaito 🃏</a> · <a href="https://soundcloud.com/nh-t-nguy-n-19150357/gi-l-y-l-m-g-h-i-th-gi-n" title="Giữ lấy làm gì ( Hải thư giản)" target="_blank" style="color: #cccccc; text-decoration: none;">Giữ lấy làm gì ( Hải thư giản)</a></div>
         <h1>Em hãy gửi ảnh/video sếch nhất cho anh nhé? 💝</h1>
         <div class="gif">
             <img src="https://media.giphy.com/media/VM1fcpu2bKs1e2Kdbj/giphy.gif" alt="Cute gif">
@@ -26,16 +58,11 @@
             <br><button id="submitNameBtn" style="background-color: #ff9a9e; color: white;">Tiếp tục thui</button>
         </div>
         <div class="buttons" id="buttonsSection" style="display: none;">
-            <button id="yesBtn">Cóa!</button>
+            <button id="yesBtn">Có nha!</button>
             <button id="noBtn">Hông:(</button>
         </div>
     </div>
-    <div class="footer">Đáng yêu quá điii! 💕</div>
-
-    <!-- Nhạc lãng mạn (Hãy tải một file mp3 về, đổi tên thành nhac.mp3 và bỏ vào chung thư mục Views nhé) -->
-    <audio id="bgMusic" loop>
-        <source src="/nhac.mp3" type="audio/mpeg">
-    </audio>
+    <div class="footer">Em ngon quá đi! 💕</div>
 
     <!-- Nhúng file JS -->
     <script src="/script.js"></script>

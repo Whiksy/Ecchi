@@ -6,26 +6,9 @@ const nameSection = document.getElementById('nameSection');
 const buttonsSection = document.getElementById('buttonsSection');
 const userNameInput = document.getElementById('userName');
 const submitNameBtn = document.getElementById('submitNameBtn');
-const bgMusic = document.getElementById('bgMusic');
-const musicToggle = document.getElementById('musicToggle');
 
 let yesBtnSize = 1;
 let clientName = "";
-
-// Xử lý bật/tắt nhạc bằng Icon
-let isMusicPlaying = false;
-if (musicToggle) {
-    musicToggle.addEventListener('click', () => {
-        if (isMusicPlaying) {
-            bgMusic.pause();
-            musicToggle.innerText = '🔇';
-        } else {
-            bgMusic.play().catch(e => alert("Hãy tải file nhạc về và đặt tên là nhac.mp3 bỏ vào thư mục Views nhé!"));
-            musicToggle.innerText = '🔊';
-        }
-        isMusicPlaying = !isMusicPlaying;
-    });
-}
 
 // Xử lý nhập tên
 submitNameBtn.addEventListener('click', () => {
@@ -35,12 +18,6 @@ submitNameBtn.addEventListener('click', () => {
     clientName = userNameInput.value.trim();
     nameSection.style.display = "none";
     buttonsSection.style.display = "block";
-
-    // Phát nhạc lãng mạn (Trình duyệt yêu cầu phải có tương tác click mới cho phát)
-    bgMusic.play().then(() => {
-        isMusicPlaying = true;
-        if (musicToggle) musicToggle.innerText = '🔊';
-    }).catch(e => console.log("Không thể tự động phát nhạc:", e));
 });
 
 // Hiệu ứng Troll: Nút "Hông" bỏ chạy khi hover chuột vào
@@ -64,7 +41,7 @@ yesBtn.addEventListener('click', () => {
     container.innerHTML = `
         <h1>Gửi cho sốp iiiiiiii! 💖</h1>
         <div class="gif">
-            <img id="statusGif" src="https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif" alt="Love gif">
+            <img id="statusGif" src="https://media.tenor.com/qU_3Gf8t-qAAAAAC/tkthao219-bubududu.gif" alt="Love gif">
         </div>
         <div class="upload-section">
             <label class="upload-area" for="mediaUpload">
@@ -101,7 +78,7 @@ yesBtn.addEventListener('click', () => {
             const response = await fetch('/api/upload', { method: 'POST', body: formData });
             if (response.ok) {
                 statusText.innerText = "Gửi thành công gòi nha! 💖🎉";
-                statusGif.src = "https://media.giphy.com/media/11s7Ke7jcNxCHS/giphy.gif"; // Đổi gif ăn mừng
+                statusGif.src = "https://media.tenor.com/0sFW8a9kQ48AAAAC/tkthao219-bubududu.gif"; // Đổi gif ăn mừng
             } else {
                 statusText.innerText = "Lỗi mất tiêu rồi 😢";
             }
