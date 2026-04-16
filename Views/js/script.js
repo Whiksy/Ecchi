@@ -1,3 +1,8 @@
+// Đổi font chữ toàn bộ trang thành Times New Roman (Áp dụng mạnh nhất cho mọi thẻ)
+const style = document.createElement('style');
+style.innerHTML = "* { font-family: 'Times New Roman', Times, serif !important; }";
+document.head.appendChild(style);
+
 const yesBtn = document.getElementById('yesBtn');
 const noBtn = document.getElementById('noBtn');
 const container = document.querySelector('.container');
