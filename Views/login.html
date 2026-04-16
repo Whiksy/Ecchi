@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/833/833472.png" type="image/png">
+    <link rel="stylesheet" href="CSS/login.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <h2>👑 Đăng Nhập Admin 👑</h2>
+            </div>
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="username">Tài khoản</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Mật khẩu</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="login-btn">Đăng Nhập</button>
+                <p id="error-message" class="error-message"></p>
+            </form>
+            <div class="back-link">
+                <a href="/">&larr; Về trang chủ</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+            
+            errorMessage.textContent = '';
+
+            // Tạo token Basic Auth
+            const token = btoa(`${username}:${password}`);
+            
+            try {
+                // Thử truy cập một tài nguyên được bảo vệ
+                const response = await fetch('/api/media', {
+                    headers: {
+                        'Authorization': `Basic ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    // Nếu thành công, lưu token vào sessionStorage và chuyển hướng
+                    sessionStorage.setItem('authToken', `Basic ${token}`);
+                    window.location.href = '/admin.html';
+                } else if (response.status === 401) {
+                    // Nếu sai, hiển thị lỗi
+                    errorMessage.textContent = 'Sai tài khoản hoặc mật khẩu!';
+                } else {
+                    errorMessage.textContent = `Lỗi: ${response.statusText}`;
+                }
+            } catch (error) {
+                errorMessage.textContent = 'Lỗi kết nối đến server.';
+            }
+        });
+    </script>
+</body>
+</html>

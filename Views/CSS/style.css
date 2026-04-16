@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;500;700&display=swap');
+
+body {
+    background: linear-gradient(135deg, #ffc8fd, #ff9a9e); /* Nền chuyển màu lãng mạn */
+    font-family: 'Quicksand', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden; /* Ngăn cuộn trang khi nút "Hông" chạy lung tung */
+}
+
+.admin-btn {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    text-decoration: none;
+    font-size: 1.5em;
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 8px 12px;
+    border-radius: 15px;
+    transition: 0.3s;
+}
+.admin-btn:hover { background-color: rgba(255, 255, 255, 0.9); transform: scale(1.1); }
+
+.container {
+    text-align: center;
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+    color: #ff6b6b;
+    font-size: 2.5em;
+    font-family: 'Dancing Script', cursive;
+    margin-bottom: 20px;
+}
+
+.buttons {
+    margin: 20px 0;
+    position: relative;
+    height: 60px; /* Giữ layout không bị nhảy */
+}
+
+button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1.2em;
+    font-weight: bold;
+    position: relative;
+}
+
+#yesBtn {
+    background-color: #97cdff;
+    color: white;
+    z-index: 2;
+    animation: pulse 1.5s infinite; /* Hiệu ứng nhịp đập thu hút */
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(151, 205, 255, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(151, 205, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(151, 205, 255, 0); }
+}
+
+#yesBtn:hover {
+    background-color: #74b9ff;
+    transform: scale(1.1);
+}
+
+#noBtn {
+    background-color: #ff6b6b;
+    color: white;
+    z-index: 10;
+}
+
+.gif {
+    margin: 20px 0;
+}
+
+.gif img {
+    border-radius: 15px;
+    max-width: 100%;
+    height: auto;
+}
+
+.footer {
+    position: fixed;
+    bottom: 20px;
+    color: #ff6b6b;
+    font-size: 1.2em;
+    font-weight: bold;
+    font-family: 'Dancing Script', cursive;
+}
+
+input[type="text"] {
+    padding: 10px;
+    font-size: 1.2em;
+    border-radius: 10px;
+    border: 2px solid #ff6b6b;
+    margin-bottom: 20px;
+    outline: none;
+    font-family: 'Quicksand', sans-serif;
+    text-align: center;
+}
+
+.upload-area {
+    border: 2px dashed #ff9a9e;
+    border-radius: 15px;
+    padding: 30px;
+    background-color: #fff0f5;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    margin: 0 auto;
+}
+
+.upload-area:hover {
+    background-color: #ffe4e1;
+    border-color: #ff6b6b;
+}
+
+.upload-icon { font-size: 3em; margin-bottom: 10px; }
+.upload-text { color: #ff6b6b; font-weight: bold; font-size: 1em; }
+.file-name { margin-top: 10px; font-size: 0.85em; color: #555; word-break: break-all; }
+.upload-area input[type="file"] { display: none; }
+
+.btn-submit {
+    margin-top: 15px;
+    background-color: #97cdff;
+    color: white;
+    padding: 12px 25px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s;
+}
+
+.btn-submit:hover { background-color: #74b9ff; transform: translateY(-2px); }

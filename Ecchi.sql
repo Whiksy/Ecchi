@@ -1,0 +1,11 @@
+CREATE DATABASE IF NOT EXISTS Ecchi CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE Ecchi;
+
+CREATE TABLE IF NOT EXISTS media_records (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    sender_name VARCHAR(255) NOT NULL,
+    file_name VARCHAR(255),
+    file_type VARCHAR(100),
+    file_data LONGBLOB,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
