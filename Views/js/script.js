@@ -18,7 +18,7 @@ let clientName = "";
 // Xử lý nhập tên
 submitNameBtn.addEventListener('click', () => {
     if (userNameInput.value.trim() === "") {
-        return alert("Bé phải nhập tên trước cơ!");
+        return alert("Em phải nhập tên trước cơ!");
     }
     clientName = userNameInput.value.trim();
     nameSection.style.display = "none";
