@@ -6,9 +6,12 @@
     <title>Sếch Day</title>
     <!-- Nhúng file CSS -->
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/833/833472.png" type="image/png">
-    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Nút bật/tắt nhạc góc trái -->
+    <button id="musicToggle" style="position: fixed; top: 10px; left: 10px; z-index: 1000; background: #ff9a9e; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" title="Bật/Tắt Nhạc">🔇</button>
+
     <!-- Nút truy cập Admin ẩn góc phải -->
     <a href="/login.html" class="admin-btn" title="Khu vực của Sốp">👑</a>
 
@@ -29,12 +32,12 @@
     </div>
     <div class="footer">Đáng yêu quá điii! 💕</div>
 
-    <!-- Nhạc lãng mạn -->
+    <!-- Nhạc lãng mạn (Hãy tải một file mp3 về, đổi tên thành nhac.mp3 và bỏ vào chung thư mục Views nhé) -->
     <audio id="bgMusic" loop>
-        <source src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_7995a97576.mp3?filename=romantic-piano-122619.mp3" type="audio/mpeg">
+        <source src="/nhac.mp3" type="audio/mpeg">
     </audio>
 
     <!-- Nhúng file JS -->
-    <script src="Scripts/script.js"></script>
+    <script src="/script.js"></script>
 </body>
 </html>

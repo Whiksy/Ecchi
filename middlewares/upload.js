@@ -14,5 +14,6 @@ const fileFilter = (req, file, cb) => {
     }
 };
 
-// Giới hạn kích thước file tải lên tối đa 50MB (chống tấn công DDoS tràn RAM)
-module.exports = multer({ storage, limits: { fileSize: 50 * 1024 * 1024 }, fileFilter });
+// Giới hạn kích thước file tải lên tối đa 15MB 
+// (MongoDB giới hạn 1 document tối đa 16MB, nên ta set 15MB để lưu an toàn)
+module.exports = multer({ storage, limits: { fileSize: 15 * 1024 * 1024 }, fileFilter });

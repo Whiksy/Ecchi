@@ -1,46 +1,47 @@
-const mysql = require('mysql2/promise');
+const mongoose = require('mongoose');
 
-// Tạo kết nối Pool đến Laragon MySQL (Tái sử dụng kết nối giúp tối ưu hiệu suất)
-const pool = mysql.createPool({
-    host: process.env.DB_HOST || 'localhost',
-    user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || '',
-    database: process.env.DB_NAME || 'Ecchi',
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
+// Kết nối MongoDB
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/Ecchi')
+    .then(() => console.log('✅ Đã kết nối MongoDB!'))
+    .catch(err => console.error('❌ Lỗi kết nối MongoDB:', err));
+
+// Định nghĩa Schema
+const mediaSchema = new mongoose.Schema({
+    sender_name: { type: String, required: true },
+    file_name: { type: String, required: true },
+    file_type: { type: String, required: true },
+    file_data: { type: Buffer, required: true },
+    created_at: { type: Date, default: Date.now }
 });
 
+const Media = mongoose.model('Media', mediaSchema);
+
 class MediaModel {
-    // Lưu file vào cơ sở dữ liệu (Dạng LONGBLOB)
+    // Lưu file vào MongoDB (Dạng Buffer)
     async create(name, fileName, fileType, fileData) {
-        const [result] = await pool.execute(
-            `INSERT INTO media_records (sender_name, file_name, file_type, file_data) VALUES (?, ?, ?, ?)`,
-            [name, fileName, fileType, fileData]
-        );
-        return result.insertId;
+        const newMedia = new Media({
+            sender_name: name,
+            file_name: fileName,
+            file_type: fileType,
+            file_data: fileData
+        });
+        const savedMedia = await newMedia.save();
+        return savedMedia._id.toString();
     }
 
-    // Lấy danh sách file (CHÚ Ý: Không SELECT trường file_data để tránh sập RAM khi load danh sách)
+    // Lấy danh sách file (Bỏ trường file_data để tránh sập RAM)
     async findAll() {
-        const [rows] = await pool.execute(
-            `SELECT id, sender_name, file_name, file_type, created_at FROM media_records ORDER BY created_at DESC`
-        );
-        return rows;
+        return await Media.find({}, '-file_data').sort({ created_at: -1 }).lean();
     }
 
-    // Lấy duy nhất 1 file bao gồm cả nội dung BLOB (Dùng để hiển thị ảnh/video ra UI)
+    // Lấy duy nhất 1 file bao gồm cả nội dung Buffer
     async findById(id) {
-        const [rows] = await pool.execute(
-            `SELECT * FROM media_records WHERE id = ?`, 
-            [id]
-        );
-        return rows[0];
+        return await Media.findById(id).lean();
     }
 
-    // Xóa file khỏi Database
+    // Xóa file khỏi MongoDB
     async delete(id) {
-        await pool.execute(`DELETE FROM media_records WHERE id = ?`, [id]);
+        await Media.findByIdAndDelete(id);
     }
 }
 
