@@ -20,6 +20,7 @@
             background: white;
             border-radius: 12px;
             box-shadow: 0 10px 25px rgba(255,154,158,0.6);
+            transition: transform 0.3s ease, opacity 0.3s ease;
         }
         
         .toggle-btn {
@@ -39,16 +40,80 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: 0.3s;
+        }
+        
+        .toggle-btn:hover {
+            background: #ff3333;
+            transform: scale(1.1);
+        }
+
+        /* Trạng thái thu nhỏ của khung nhạc */
+        .music-container.minimized {
+            transform: scale(0);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Nút bật lại nhạc (ẩn theo mặc định) */
+        .floating-music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #a149d0; /* Màu đồng bộ với SoundCloud */
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(161, 73, 208, 0.5);
+            display: none; /* Mặc định ẩn */
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: transform 0.2s;
+        }
+        
+        .floating-music-btn:active {
+            transform: scale(0.9);
+        }
+        
+        .floating-music-btn.visible {
+            display: flex; /* Hiện khi có class visible */
         }
     </style>
 </head>
 <body>
     <!-- Khung nhạc SoundCloud cố định góc phải -->
-    <div class="music-container">
+    <div class="music-container" id="musicContainer">
+        <button class="toggle-btn" id="closeMusicBtn" title="Thu nhỏ">-</button>
         <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2123779404&color=%23a149d0&auto_play=true&hide_related=false&show_comments=false&show_user=false&show_reposts=false&show_teaser=false" style="border-radius: 12px;"></iframe>
     </div>
     
+    <!-- Nút mở lại nhạc khi khung nhạc đã bị thu nhỏ -->
+    <button class="floating-music-btn" id="openMusicBtn" title="Mở nhạc">🎵</button>
+
     <!-- Khung hiển thị nội dung các trang (Index, Login, Admin...) -->
     <iframe id="content-frame" src="/index.html"></iframe>
+
+    <script>
+        const musicContainer = document.getElementById('musicContainer');
+        const closeMusicBtn = document.getElementById('closeMusicBtn');
+        const openMusicBtn = document.getElementById('openMusicBtn');
+
+        // Thu nhỏ khung nhạc khi ấn dấu X
+        closeMusicBtn.addEventListener('click', () => {
+            musicContainer.classList.add('minimized');
+            openMusicBtn.classList.add('visible');
+        });
+
+        // Phóng to lại khung nhạc khi ấn nút 🎵
+        openMusicBtn.addEventListener('click', () => {
+            musicContainer.classList.remove('minimized');
+            openMusicBtn.classList.remove('visible');
+        });
+    </script>
 </body>
 </html>
